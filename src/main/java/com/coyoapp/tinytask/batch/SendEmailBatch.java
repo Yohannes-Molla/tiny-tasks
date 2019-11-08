@@ -33,7 +33,7 @@ public class SendEmailBatch {
 
 
 
-  @Scheduled(cron = ResourceConstants.CRON_EVERYDAY_EXPRESSION)
+  @Scheduled(cron = ResourceConstants.CRON_EVERY_TWO_SECONDS_EXPRESSION)
   public void sendUsersEmail() {
     logger.info("Email Schedule started");
 

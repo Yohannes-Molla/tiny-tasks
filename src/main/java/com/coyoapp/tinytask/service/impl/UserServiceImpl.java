@@ -1,6 +1,7 @@
 package com.coyoapp.tinytask.service.impl;
 
 
+import com.coyoapp.tinytask.auth.CustomUserDetails;
 import com.coyoapp.tinytask.domain.Role;
 import com.coyoapp.tinytask.domain.User;
 import com.coyoapp.tinytask.dto.UserRequest;
@@ -11,13 +12,16 @@ import com.coyoapp.tinytask.repository.UserRepository;
 import com.coyoapp.tinytask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
   @Autowired
   private UserRepository userRepository;
@@ -27,6 +31,14 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   ConversionService conversionService;
+
+  public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+    User user = userRepository.findByUsername(userId);
+    if(user == null){
+      throw new UsernameNotFoundException("Invalid username or password.");
+    }
+    return new CustomUserDetails(user);
+  }
 
   @Override
   public List<UserResponse> getAllUsers() {

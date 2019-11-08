@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(ResourceConstants.TINY_TASKS_V1 + "tasks")
+@RequestMapping(ResourceConstants.TINY_TASKS_V1_SECURED + "tasks")
 @RequiredArgsConstructor
 public class TaskController {
 

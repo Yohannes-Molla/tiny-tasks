@@ -31,7 +31,14 @@ spring:
           starttls:
             enable: true
             require: true
+  security:
+    oauth2:
+      resource:
+        filter-order: 3
 
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 logging:
   level:
     com.coyoapp.tinytask: DEBUG
